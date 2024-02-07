@@ -1,0 +1,81 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="keywords" content="Weather, Weather Today" />
+  <meta name="description" content="Do you want to know the weather right now? Look here" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather City</title>
+  <link rel="stylesheet" href="{% static "weather_api/css/main.css" %}" />
+</head>
+
+<body>
+  <div class="container">
+    <div class="search-container">
+      <form method="get" url="{% url 'weather:home' %}">
+        <input type="text" name="city" placeholder="Enter city name" />
+        <button type="submit"><img alt="search" src="{% static "weather_api/assets/images/search.svg" %}" /></button>
+      </form>
+    </div>
+
+    <div class="group">
+      <div class="cloud-belove">
+        <img alt="cloud" src="{% static "weather_api/assets/images/cloud.svg" %}" />
+        <img alt="cloud" src="{% static "weather_api/assets/images/cloud.svg" %}" />
+        <img alt="cloud" src="{% static "weather_api/assets/images/cloud.svg" %}" />
+      </div>
+      <div class="info-container">
+          <div class="info-container--data">
+           <h3 class="info-container--name">{{weather.name}}</h3>
+            <img class="info-container--img" src="https://openweathermap.org/img/wn/{{weather.icon}}@2x.png" alt="weather image" />
+          </div>
+          <div class="info-container--temperature">
+            <div class="info-container--now">
+              <img alt="temperature" class="info-container--icon" src={% static "weather_api/assets/images/temp.svg" %} />
+              <p class="info-container--temp">{{weather.temperature}} C°</p>
+            </div>
+
+            <div class="info-container--temps">
+              <div class="info-container--others">
+                  <img alt="temperature-low" class="info-container--icon" src={% static "weather_api/assets/images/temlow.svg" %} />
+                  <p class="info-container--others-temp temp-min">{{weather.tempmin}} C°</p>
+              </div>
+              <div class="info-container--others">
+                  <img alt="temperature-max" class="info-container--icon" src={% static "weather_api/assets/images/tempmax.svg" %} />
+                  <p class="info-container--others-temp temp-max">{{weather.tempmax}} C°</p>
+              </div>
+            </div>
+          </div>
+          <div class="info-container--infos">
+            <div class="info-container--info">
+              <img class="info-container--icon" alt="sunrise" src={% static "weather_api/assets/images/sunrise.svg" %} />
+              <p class="info-container--value sunrise">{{weather.sunrise}}</p>
+            </div>
+            <div class="info-container--info">
+              <img class="info-container--icon" alt="sunset" src={% static "weather_api/assets/images/sunset.svg" %} />
+              <p class="info-container--value sunset">{{weather.sunset}}</p>
+            </div>
+            <div class="info-container--info">
+              <img class="info-container--icon" alt="wind speed" src={% static "weather_api/assets/images/windspeed.svg" %} />
+              <p class="info-container--value">{{weather.wind}} m/s</p>
+            </div>
+            <div class="info-container--info">
+              <img class="info-container--icon" alt="humidity" src={% static "weather_api/assets/images/humidity.svg" %} />
+              <p class="info-container--value">{{weather.humidity}} %</p>
+            </div>
+          </div>
+      </div>
+      <div class="cloud-above">
+        <img src="{% static "weather_api/assets/images/cloud.svg" %}" alt="cloud" />
+        <img src="{% static "weather_api/assets/images/cloud.svg" %}" alt="cloud"/>
+        <img src="{% static "weather_api/assets/images/cloud.svg" %}" alt="cloud"/>
+      </div>
+    </div>
+
+  </div>
+</body>
+
+</html>

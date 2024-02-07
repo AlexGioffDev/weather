@@ -1,5 +1,5 @@
-import os
 import datetime
+import os
 
 import requests
 from django.shortcuts import render
@@ -21,8 +21,19 @@ class City:
     humidity: int
     wind: float
 
-    def __init__(self, name, temperature, tempmax, tempmin, description, icon,
-                 sunset, sunrise, humidity, wind):
+    def __init__(
+        self,
+        name,
+        temperature,
+        tempmax,
+        tempmin,
+        description,
+        icon,
+        sunset,
+        sunrise,
+        humidity,
+        wind,
+    ):
         self.name = name
         self.temperature = int(temperature)
         self.tempmax = int(tempmax)
@@ -39,16 +50,24 @@ class City:
         obj = datetime.datetime.fromtimestamp(int(timestamp))
         return obj.strftime("%H:%M")
 
-                     
+
 # Create your views here.
 def index(request):
     city_value = request.GET.get("city", None)
-    if city_value is None:
-        city_value = "roma,IT"
+    if city_value is None or city_value == "":
+        city_value = "Rome,IT"
 
     url_weather = f"https://api.openweathermap.org/data/2.5/weather?q={city_value}&units=metric&appid={api_weather}"
-    city_weather = requests.get(url_weather).json()
-    print(city_weather)
+    try:
+        city_weather = requests.get(url_weather).json()
+        # Check if the API request was successful
+        if city_weather["cod"] != 200:
+            raise Exception
+    except:
+        city_value = "Rome,IT"
+        url_weather = f"https://api.openweathermap.org/data/2.5/weather?q={city_value}&units=metric&appid={api_weather}"
+        city_weather = requests.get(url_weather).json()
+
     city = City(
         name=city_value,
         temperature=city_weather["main"]["temp"],
@@ -59,7 +78,7 @@ def index(request):
         sunset=city_weather["sys"]["sunset"],
         sunrise=city_weather["sys"]["sunrise"],
         humidity=city_weather["main"]["humidity"],
-        wind=city_weather["wind"]["speed"]
+        wind=city_weather["wind"]["speed"],
     )
 
     context = {"weather": city}

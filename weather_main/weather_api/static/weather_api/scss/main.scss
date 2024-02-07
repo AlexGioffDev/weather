@@ -313,31 +313,31 @@ input::placeholder {
 
 @keyframes move-right-tablet {
   0% {
-    transform: translateX(-150%);
+    transform: translateX(-155%);
   }
 
   100% {
-    transform: translateX(150%);
+    transform: translateX(155%);
   }
 }
 
 @keyframes move-left-lg {
   0% {
-    transform: translateX(162%);
+    transform: translateX(190%);
   }
 
   100% {
-    transform: translateX(-162%);
+    transform: translateX(-190%);
   }
 }
 
 @keyframes move-right-lg {
   0% {
-    transform: translateX(-162%);
+    transform: translateX(-190%);
   }
 
   100% {
-    transform: translateX(162%);
+    transform: translateX(190%);
   }
 }
 
@@ -417,7 +417,25 @@ input::placeholder {
   }
 }
 
+@media only screen and (min-width: 768px) and (orientation: landscape) {
+  .group {
+    padding-top: 15rem;
+  }
+
+  .group .cloud-belove {
+    top: 10px;
+  }
+
+  .group .cloud-above {
+    bottom: 120px;
+  }
+}
+
 @media only screen and (min-width: 1024px) {
+  .group .info-container {
+    width: 45%;
+  }
+
   .group .cloud-belove {
     animation: move-left-lg 12s linear infinite;
   }

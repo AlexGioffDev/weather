@@ -51,7 +51,6 @@ class City:
         return obj.strftime("%H:%M")
 
 
-# Create your views here.
 def index(request):
     city_value = request.GET.get("city", None)
     if city_value is None or city_value == "":
